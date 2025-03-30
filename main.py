@@ -8,7 +8,8 @@ dotenv.load_dotenv()
 
 client = openai.OpenAI(
     api_key = os.environ['OPENAI_API_KEY'],
-    base_url = 'https://api.deepseek.com/beta'
+    base_url = 'https://api.deepseek.com/beta',
+    timeout = 10000
 )
 
 with open('system.txt') as f:
@@ -38,7 +39,7 @@ def generate(context: str = None):
         response_format = {'type': 'json_object'}
     )
 
-    return box.Box(json.loads(resp.choiSces[0].message.content))
+    return box.Box(json.loads(resp.choices[0].message.content))
 
 print(history)
 resp = generate()
